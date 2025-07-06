@@ -1,11 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import furnitureData from '../data/furnitureData';
 import SearchJumbotron from '../components/SearchJumbotron';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('');
   const [selectedMaterial, setSelectedMaterial] = useState('');
@@ -88,10 +90,6 @@ const SearchPage = () => {
       brand: selectedBrand,
       roomType: selectedRoomType,
       sale: onSaleOnly || undefined,
-      sort: sortBy || undefined,
-      sort: sortBy || undefined,
-      sort: sortBy || undefined,
-      sort: sortBy || undefined,
       sort: sortBy || undefined
     });
   };
@@ -104,7 +102,8 @@ const SearchPage = () => {
       material: selectedMaterial,
       brand: selectedBrand,
       roomType: selectedRoomType,
-      sale: onSaleOnly || undefined
+      sale: onSaleOnly || undefined,
+      sort: sortBy || undefined
     });
   };
 
@@ -116,7 +115,8 @@ const SearchPage = () => {
       material: value,
       brand: selectedBrand,
       roomType: selectedRoomType,
-      sale: onSaleOnly || undefined
+      sale: onSaleOnly || undefined,
+      sort: sortBy || undefined
     });
   };
 
@@ -128,7 +128,8 @@ const SearchPage = () => {
       material: selectedMaterial,
       brand: value,
       roomType: selectedRoomType,
-      sale: onSaleOnly || undefined
+      sale: onSaleOnly || undefined,
+      sort: sortBy || undefined
     });
   };
 
@@ -140,7 +141,8 @@ const SearchPage = () => {
       material: selectedMaterial,
       brand: selectedBrand,
       roomType: value,
-      sale: onSaleOnly || undefined
+      sale: onSaleOnly || undefined,
+      sort: sortBy || undefined
     });
   };
 
@@ -206,6 +208,7 @@ const SearchPage = () => {
       sort: sortBy || undefined
     });
   };
+
   const handleRoomTypeClick = (roomType) => {
     setSelectedRoomType(roomType);
     updateURLParams({
@@ -216,6 +219,18 @@ const SearchPage = () => {
       roomType: roomType,
       sale: onSaleOnly || undefined,
       sort: sortBy || undefined
+    });
+  };
+
+  // Handle navigation to item page while preserving current search state
+  const handleItemClick = (productId) => {
+    // Create the current search URL with all parameters
+    const currentSearchUrl = `${location.pathname}?${searchParams.toString()}`;
+    
+    navigate(`/item/${productId}`, {
+      state: { 
+        previousSearch: currentSearchUrl 
+      }
     });
   };
 
@@ -296,55 +311,75 @@ const SearchPage = () => {
       <div className="row g-4 px-3">
         {filteredData.map(product => (
           <div key={product.id} className="col-lg-6">
-            <div className="card h-100">
-              <img 
-                src={product.image} 
-                className="card-img-top"
-                alt={product.name}
-                style={{ height: '200px', objectFit: 'cover' }}
-              />
-              <div className="card-body d-flex flex-column">
-                <h6 className="card-title">{product.name}</h6>
-                <p className="card-text small text-muted">
-                  <span 
-                    className="searchCardFacet"
-                    onClick={() => handleBrandClick(product.brand)}
-                  >
-                    {product.brand}
-                  </span>
-                  {' • '}
-                  <span 
-                    className="searchCardFacet"
-                    onClick={() => handleMaterialClick(product.material)}
-                  >
-                    {product.material}
-                  </span>
-                </p>
-                <div className="mb-2">
-                  {product.roomType.map(room => (
+            <div className="card h-100" style={{ cursor: 'pointer' }}>
+              <div onClick={() => handleItemClick(product.id)}>
+                <img 
+                  src={product.image} 
+                  className="card-img-top"
+                  alt={product.name}
+                  style={{ height: '200px', objectFit: 'cover' }}
+                />
+                <div className="card-body d-flex flex-column">
+                  <h6 className="card-title">{product.name}</h6>
+                  <p className="card-text small text-muted">
                     <span 
-                      key={room} 
-                      className="badge searchRoomBadge me-1"
-                      onClick={() => handleRoomTypeClick(room)}
+                      className="searchCardFacet"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleBrandClick(product.brand);
+                      }}
                     >
-                      {room}
+                      {product.brand}
                     </span>
-                  ))}
-                </div>
-                <div className="d-flex justify-content-between align-items-center mt-auto">
-                  <div>
-                    {product.sale.isOnSale ? (
-                      <>
-                        <span className="fw-bold text-danger">${product.sale.salePrice}</span>
-                        <span className="text-muted text-decoration-line-through ms-2">
-                          ${product.price}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="fw-bold">${product.price}</span>
-                    )}
+                    {' • '}
+                    <span 
+                      className="searchCardFacet"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMaterialClick(product.material);
+                      }}
+                    >
+                      {product.material}
+                    </span>
+                  </p>
+                  <div className="mb-2">
+                    {product.roomType.map(room => (
+                      <span 
+                        key={room} 
+                        className="badge searchRoomBadge me-1"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRoomTypeClick(room);
+                        }}
+                      >
+                        {room}
+                      </span>
+                    ))}
                   </div>
-                  <button className="btn searchAddToCartButton">Add to Cart</button>
+                  <div className="d-flex justify-content-between align-items-center mt-auto">
+                    <div>
+                      {product.sale.isOnSale ? (
+                        <>
+                          <span className="fw-bold text-danger">${product.sale.salePrice}</span>
+                          <span className="text-muted text-decoration-line-through ms-2">
+                            ${product.price}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="fw-bold">${product.price}</span>
+                      )}
+                    </div>
+                    <button 
+                      className="btn searchAddToCartButton"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        // Handle quick add to cart
+                        console.log(`Quick add ${product.name} to cart`);
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

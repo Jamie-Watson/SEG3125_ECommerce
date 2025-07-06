@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import SearchPage from './pages/SearchPage';
 import Cart from './pages/Cart';
 import Survey from './pages/Survey';
+import Item from './pages/Item';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/item/:id" element={<Item />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/survey" element={<Survey />} />
           </Routes>
