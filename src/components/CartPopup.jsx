@@ -1,8 +1,15 @@
 import { CheckCircle, ShoppingCart, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function CartPopup ({ isVisible, onClose, productName, quantity = 1 }) {
-  if (!isVisible) return null;
+  const navigate = useNavigate();
+  
+    if (!isVisible) return null;
 
+    const handleGoToCart = () => {
+    onClose();
+    navigate('/cart');
+  };
   return (
     <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
       <div className="modal-dialog modal-dialog-centered">
@@ -35,10 +42,7 @@ function CartPopup ({ isVisible, onClose, productName, quantity = 1 }) {
             <button 
               type="button" 
               className="btn searchAddToCartButton"
-              onClick={() => {
-                onClose();
-                window.location.href = '/cart';
-              }}
+              onClick={handleGoToCart}
             >
               Go to Cart
             </button>
