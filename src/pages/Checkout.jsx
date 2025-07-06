@@ -466,19 +466,25 @@ function Checkout() {
                   </div>
 
                   <div className="text-center mt-4">
-                    <button 
-                      className="btn searchAddToCartButton btn-lg me-3"
-                      onClick={() => navigate('/search')}
-                    >
-                      Continue Shopping
-                    </button>
-                    <button 
-                      className="btn searchAddToCartButton btn-lg"
-                      onClick={() => navigate('/')}
-                    >
-                      Back to Home
-                    </button>
-                  </div>
+  <button 
+    className="btn searchAddToCartButton btn-lg me-3"
+    onClick={() => navigate('/survey')}
+  >
+    Share Your Experience
+  </button>
+  <button 
+    className="btn btn-outline-secondary btn-lg me-3"
+    onClick={() => navigate('/search')}
+  >
+    Continue Shopping
+  </button>
+  <button 
+    className="btn btn-outline-secondary btn-lg"
+    onClick={() => navigate('/')}
+  >
+    Back to Home
+  </button>
+</div>
                 </div>
               </div>
             </div>

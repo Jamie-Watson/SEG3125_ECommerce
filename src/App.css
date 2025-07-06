@@ -106,6 +106,15 @@ body, html {
   border-radius: 16px;
 }
 
+.surveyJumbotron{
+  min-height: 30vh;
+  background-image: url(/assets/images/surveyHelpJumbotron.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+}
+
 .searchCardFacet{
   cursor: pointer;
   color: var(--t-d-blue) !important;

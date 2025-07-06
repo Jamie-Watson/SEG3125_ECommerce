@@ -31,7 +31,7 @@ function CartPopup ({ isVisible, onClose, productName, quantity = 1 }) {
             </h6>
             <p className="mb-0 darkBlueText">Continue shopping or go to cart to checkout</p>
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer justify-content-center">
             <button 
               type="button" 
               className="btn btn-secondary" 
