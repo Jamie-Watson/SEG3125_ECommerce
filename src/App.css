@@ -8,8 +8,16 @@
 body, html {
   margin: 0 !important;
   padding: 0 !important;
-  background-color: var(--t-white);
+  background-color: var(--t-white) !important;
 }
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: var(--t-white) !important;
+    color-scheme: light;
+  }
+}
+
 
 :root {
   --t-d-blue: #022b3a;
@@ -46,6 +54,10 @@ body, html {
 
 .whiteText{
   color: var(--t-white) !important;
+}
+
+.whiteBackground{
+  background-color: var(--t-white) !important;
 }
 
 .accentText{
