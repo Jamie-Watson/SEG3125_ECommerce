@@ -1,42 +1,92 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100vw !important;
+  margin: 0;
+  padding: 0;
+  caret-color: transparent;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+:root {
+  --t-d-blue: #022b3a;
+  --t-l-blue: #bfdbf7;
+  --t-white: #f5efed;
+  --t-black: #080705;
+  --t-gray: #e1e5f2;
+  --grey: #d7d7d7;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.sidebar{
+   top: 0 !important;
+  height: 100vh !important;
+  background-color: var(--t-d-blue) !important;
+  color: var(--t-white) !important;
+  position: fixed !important;
+  height: 100vh !important;
+  width: 280px !important;
+  transition: 0.3s ease-in-out !important;
+  z-index: 1030;
+}
+.translate-x-n100 {
+  transform: translateX(-100%);
+}
+.translate-x-0 {
+  transform: translateX(0);
 }
 
-.card {
-  padding: 2em;
+.sidebarText{
+  color: var(--t-l-blue) !important;
+  font-size: 1.5rem !important;
 }
 
-.read-the-docs {
-  color: #888;
+.whiteText{
+  color: var(--t-white) !important;
+}
+
+.accentText{
+  color: var(--t-l-blue) !important;
+}
+
+.blackText{
+  color: var(--t-black) !important;
+}
+
+.sidebarBreak{
+  border-bottom: 1px solid var(--t-l-blue);
+}
+
+.sidebarHamburger {
+  background-color: var(--t-d-blue) !important;
+  top: 10px;
+  left: 10px;
+  z-index: 1050;
+  color: var(--t-l-blue) !important;
+}
+
+.sidebarHamburger:hover {
+  background-color: var(--t-l-blue) !important;
+  color: var(--t-white) !important;
+}
+
+.sidebarOverlay{
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1030;      
+}
+
+.sidebarClose{
+  color: var(--t-l-blue) !important;
+  border-color: var(--t-l-blue) !important;
+}
+
+.homeJumbotron{
+  min-height: 60vh;
+  background-image: url(/assets/images/homeBedJumbo.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
