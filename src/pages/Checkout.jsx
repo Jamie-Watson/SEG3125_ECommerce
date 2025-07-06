@@ -157,62 +157,70 @@ function Checkout() {
   }
 
   return (
-    <div className="container-fluid py-4 mt-5">
-      <div className="row mb-4">
+    <div className="container-fluid px-2 px-sm-3 px-md-4 pt-4 mt-3 mt-sm-4 mt-md-5">
+      <div className="row mb-3 mb-sm-4">
         <div className="col-12 d-flex justify-content-between align-items-center">
           <button 
             className="btn searchAddToCartButton d-flex align-items-center"
             onClick={() => navigate('/cart')}
           >
             <ArrowLeft className="me-2" size={16} />
-            Back to Cart
+            <span className="d-none d-sm-inline">Back to Cart</span>
+            <span className="d-sm-none">Back</span>
           </button>
         </div>
       </div>
 
-<div className="row mb-5">
-  <div className="col-12">
-    <div className="d-flex justify-content-center align-items-center">
-      {checkoutSteps.map((step, index) => (
-        <div key={index} className="d-flex align-items-center">
-          <div className="text-center">
-            <div className={`rounded-circle mb-2 mx-auto ${
-              currentStep >= index ? 'orderProgress' : 'bg-light darkBlueText'
-            }`} style={{ 
-              width: '50px', 
-              height: '50px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center' 
-            }}>
-              {currentStep > index ? <CheckCircle size={24} /> : <step.icon size={24} />}
-            </div>
-            <div className={`fw-bold ${currentStep >= index ? 'infoText' : 'darkBlueText'}`}>
-              {step.title}
-            </div>
+      <div className="row mb-4 mb-sm-5">
+        <div className="col-12">
+          <div className="d-flex justify-content-center align-items-center px-2">
+            {checkoutSteps.map((step, index) => (
+              <div key={index} className="d-flex align-items-center">
+                <div className="text-center">
+                  <div className={`rounded-circle mb-2 mx-auto ${
+                    currentStep >= index ? 'orderProgress' : 'bg-light darkBlueText'
+                  }`} style={{ 
+                    width: '40px', 
+                    height: '40px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                  }}>
+                    {currentStep > index ? <CheckCircle size={20} /> : <step.icon size={20} />}
+                  </div>
+                  <div className={`fw-bold ${currentStep >= index ? 'infoText' : 'darkBlueText'}`} 
+                       style={{ fontSize: '0.75rem', lineHeight: '1.2' }}>
+                    <span className="d-none d-sm-inline">{step.title}</span>
+                    <span className="d-sm-none">{step.title.split(' ')[0]}</span>
+                  </div>
+                </div>
+                {index < checkoutSteps.length - 1 && (
+                  <div className="mx-2 mx-sm-3 mx-md-4" 
+                       style={{ 
+                         width: '30px', 
+                         height: '2px', 
+                         backgroundColor: currentStep > index ? '#1F7A8C' : '#dee2e6' 
+                       }}>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-          {index < checkoutSteps.length - 1 && (
-            <div className="mx-4" 
-                 style={{ width: '50px', height: '2px', backgroundColor: currentStep > index ? '#1F7A8C' : '#dee2e6' }}>
-            </div>
-          )}
         </div>
-      ))}
-    </div>
-  </div>
-</div>
+      </div>
+
       <div className="row justify-content-center">
-        <div className="col-lg-8">
+        <div className="col-12 col-lg-8">
           {currentStep === 0 && (
-            <div className="card">
+            <div className="card mb-4">
               <div className="card-header itemTotalBox">
                 <h4 className="mb-0 infoText">
                   Personal Information
                 </h4>
               </div>
-              <div className="card-body">
+              <div className="card-body px-3 px-sm-4">
                 <div className="row">
-                  <div className="col-md-6 mb-3">
+                  <div className="col-12 col-md-6 mb-3">
                     <label className="form-label darkBlueText">First Name *</label>
                     <input
                       type="text"
@@ -225,7 +233,7 @@ function Checkout() {
                       <div className="invalid-feedback">{personalInfoErrors.firstName}</div>
                     )}
                   </div>
-                  <div className="col-md-6 mb-3">
+                  <div className="col-12 col-md-6 mb-3">
                     <label className="form-label darkBlueText">Last Name *</label>
                     <input
                       type="text"
@@ -240,7 +248,7 @@ function Checkout() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-6 mb-3">
+                  <div className="col-12 col-md-6 mb-3">
                     <label className="form-label darkBlueText">Email *</label>
                     <input
                       type="email"
@@ -253,7 +261,7 @@ function Checkout() {
                       <div className="invalid-feedback">{personalInfoErrors.email}</div>
                     )}
                   </div>
-                  <div className="col-md-6 mb-3">
+                  <div className="col-12 col-md-6 mb-3">
                     <label className="form-label darkBlueText">Phone Number *</label>
                     <input
                       type="tel"
@@ -281,7 +289,7 @@ function Checkout() {
                   )}
                 </div>
                 <div className="row">
-                  <div className="col-md-4 mb-3">
+                  <div className="col-12 col-md-4 mb-3">
                     <label className="form-label darkBlueText">City *</label>
                     <input
                       type="text"
@@ -294,7 +302,7 @@ function Checkout() {
                       <div className="invalid-feedback">{personalInfoErrors.city}</div>
                     )}
                   </div>
-                  <div className="col-md-4 mb-3">
+                  <div className="col-12 col-md-4 mb-3">
                     <label className="form-label darkBlueText">Province *</label>
                     <select
                       className={`form-select ${personalInfoErrors.province ? 'is-invalid' : ''}`}
@@ -320,7 +328,7 @@ function Checkout() {
                       <div className="invalid-feedback">{personalInfoErrors.province}</div>
                     )}
                   </div>
-                  <div className="col-md-4 mb-3">
+                  <div className="col-12 col-md-4 mb-3">
                     <label className="form-label darkBlueText">Postal Code *</label>
                     <input
                       type="text"
@@ -334,20 +342,18 @@ function Checkout() {
                     )}
                   </div>
                 </div>
-                
-
               </div>
             </div>
           )}
 
           {currentStep === 1 && (
-            <div className="card">
+            <div className="card mb-4">
               <div className="card-header itemTotalBox">
                 <h4 className="mb-0 infoText">
                   Payment Information
                 </h4>
               </div>
-              <div className="card-body">
+              <div className="card-body px-3 px-sm-4">
                 <div className="mb-3">
                   <label className="form-label darkBlueText">Cardholder Name *</label>
                   <input
@@ -376,7 +382,7 @@ function Checkout() {
                   )}
                 </div>
                 <div className="row">
-                  <div className="col-md-12 mb-3">
+                  <div className="col-12 mb-3">
                     <label className="form-label darkBlueText">Expiry Date *</label>
                     <input
                       type="text"
@@ -391,8 +397,6 @@ function Checkout() {
                     )}
                   </div>
                 </div>
-                
-
               </div>
             </div>
           )}
@@ -405,7 +409,7 @@ function Checkout() {
                     Order Confirmed!
                   </h3>
                 </div>
-                <div className="card-body">
+                <div className="card-body px-3 px-sm-4">
                   <div className="text-center mb-4">
                     <p className="darkBlueText">Your order has been successfully placed and is being processed.</p>
                   </div>
@@ -414,14 +418,14 @@ function Checkout() {
                     <div className="card-header">
                       <h5 className="mb-0 darkBlueText">Order Summary</h5>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body px-3 px-sm-4">
                       <div className="mb-3">
                         <h6 className="darkBlueText">Items in your order:</h6>
                         {cartItems.map(item => {
                           const currentPrice = item.sale?.isOnSale ? item.sale.salePrice : item.price;
                           return (
                             <div key={item.id} className="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
-                              <div>
+                              <div className="flex-grow-1 me-3">
                                 <div className="fw-bold darkBlueText" style={{ fontSize: '0.9rem' }}>
                                   {item.name}
                                 </div>
@@ -454,7 +458,7 @@ function Checkout() {
                   </div>
 
                   <div className="row justify-content-center">
-                    <div className="col-md-6 text-center">
+                    <div className="col-12 col-md-8 col-lg-6 text-center">
                       <h5 className="darkBlueText">Shipping Address:</h5>
                       <p className="darkBlueText">
                         {personalInfo.firstName} {personalInfo.lastName}<br />
@@ -466,25 +470,30 @@ function Checkout() {
                   </div>
 
                   <div className="text-center mt-4">
-  <button 
-    className="btn searchAddToCartButton btn-lg me-3"
-    onClick={() => navigate('/survey')}
-  >
-    Share Your Experience
-  </button>
-  <button 
-    className="btn btn-outline-secondary btn-lg me-3"
-    onClick={() => navigate('/search')}
-  >
-    Continue Shopping
-  </button>
-  <button 
-    className="btn btn-outline-secondary btn-lg"
-    onClick={() => navigate('/')}
-  >
-    Back to Home
-  </button>
-</div>
+                    <div className="d-flex flex-column d-sm-block gap-2">
+                      <button 
+                        className="btn searchAddToCartButton btn-lg mb-2 mb-sm-0 me-sm-2"
+                        onClick={() => navigate('/survey')}
+                      >
+                        <span className="d-none d-sm-inline">Share Your Experience</span>
+                        <span className="d-sm-none">Share Experience</span>
+                      </button>
+                      <button 
+                        className="btn btn-outline-secondary btn-lg mb-2 mb-sm-0 me-sm-2"
+                        onClick={() => navigate('/search')}
+                      >
+                        <span className="d-none d-sm-inline">Continue Shopping</span>
+                        <span className="d-sm-none">Shop More</span>
+                      </button>
+                      <button 
+                        className="btn btn-outline-secondary btn-lg"
+                        onClick={() => navigate('/')}
+                      >
+                        <span className="d-none d-sm-inline">Back to Home</span>
+                        <span className="d-sm-none">Home</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -492,19 +501,19 @@ function Checkout() {
         </div>
 
         {currentStep < 2 && (
-          <div className="col-lg-4">
-            <div className="card sticky-top">
+          <div className="col-12 col-lg-4 mt-4 mt-lg-0">
+            <div className="card position-static position-lg-sticky" style={{ top: '1rem' }}>
               <div className="card-header itemTotalBox">
                 <h5 className="mb-0 infoText">Order Summary</h5>
               </div>
-              <div className="card-body">
+              <div className="card-body px-3 px-sm-4">
                 <div className="mb-3">
                   <h6 className="darkBlueText">Items in your order:</h6>
                   {cartItems.map(item => {
                     const currentPrice = item.sale?.isOnSale ? item.sale.salePrice : item.price;
                     return (
                       <div key={item.id} className="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
-                        <div>
+                        <div className="flex-grow-1 me-3">
                           <div className="fw-bold darkBlueText" style={{ fontSize: '0.9rem' }}>
                             {item.name}
                           </div>
@@ -548,7 +557,12 @@ function Checkout() {
                     className="btn searchAddToCartButton btn-lg"
                     onClick={handleNext}
                   >
-                    {currentStep === 0 ? 'Continue to Payment' : 'Complete Order'}
+                    <span className="d-none d-sm-inline">
+                      {currentStep === 0 ? 'Continue to Payment' : 'Complete Order'}
+                    </span>
+                    <span className="d-sm-none">
+                      {currentStep === 0 ? 'Continue' : 'Complete'}
+                    </span>
                     <ArrowRight className="ms-2" size={16} />
                   </button>
                 </div>

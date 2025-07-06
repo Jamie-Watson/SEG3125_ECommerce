@@ -69,7 +69,6 @@ function Cart() {
       return;
     }
     
-    // Navigate to checkout page
     navigate('/checkout');
   };
 
