@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import Home from './pages/Home';
-import Search from './pages/Search';
+import SearchPage from './pages/SearchPage';
 import Cart from './pages/Cart';
 import Survey from './pages/Survey';
 import './App.css';
@@ -16,7 +16,7 @@ function App() {
         <Main sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/survey" element={<Survey />} />
           </Routes>

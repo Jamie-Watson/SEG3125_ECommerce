@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 function HomeJumbotron({ id }) {
   return (
-    <div
+    <div className="p-3">
+        <div
       id={id}
       className="position-relative d-flex align-items-center justify-content-center whiteText homeJumbotron"
     >
@@ -10,7 +11,7 @@ function HomeJumbotron({ id }) {
         <h1 className="display-4 fw-bold mb-3">
           Your dream room is just a deal away
         </h1>
-        <Link to="/search" className="text-decoration-none">
+        <Link to="/search?sale=true" className="text-decoration-none">
           <h1
             className="display-6 mb-3 whiteText"
             style={{ cursor: "pointer" }}
@@ -19,6 +20,7 @@ function HomeJumbotron({ id }) {
           </h1>
         </Link>
       </div>
+    </div>
     </div>
   );
 }

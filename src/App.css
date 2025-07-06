@@ -54,6 +54,10 @@ body, html {
   color: var(--t-black) !important;
 }
 
+.darkBlueText{
+  color: var(--t-d-blue) !important;
+}
+
 .sidebarBreak{
   border-bottom: 1px solid var(--t-l-blue);
 }
@@ -89,4 +93,35 @@ body, html {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 16px;
+}
+
+.searchJumbotron{
+  min-height: 40vh;
+  background-image: url(/assets/images/searchBedJumbotron.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+}
+
+.searchCardFacet{
+  cursor: pointer;
+  color: var(--t-d-blue) !important;
+}
+
+.searchRoomBadge{
+  cursor: pointer;
+  color: var(--t-d-blue) !important;
+  background-color: var(--t-l-blue) !important;
+}
+
+.searchAddToCartButton{
+  background-color: var(--t-l-blue) !important;
+  color: var(--t-d-blue) !important;
+}
+
+.searchAddToCartButton:hover{
+  background-color: var(--t-d-blue) !important;
+  color: var(--t-l-blue) !important;
 }
