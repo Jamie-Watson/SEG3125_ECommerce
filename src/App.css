@@ -5,10 +5,19 @@
   caret-color: transparent;
 }
 
+@font-face {
+  font-family: 'Raleway';
+  src: url('../public/Raleway-VariableFont_wght.ttf') format('truetype'),
+       url('../public/Raleway-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 body, html {
   margin: 0 !important;
   padding: 0 !important;
   background-color: var(--t-white) !important;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -475,7 +475,7 @@ function Checkout() {
                         className="btn searchAddToCartButton btn-lg mb-2 mb-sm-0 me-sm-2"
                         onClick={() => navigate('/survey')}
                       >
-                        <span className="d-none d-sm-inline">Share Your Experience</span>
+                        <span className="d-none d-sm-inline">I Want to Share Feedback</span>
                         <span className="d-sm-none">Share Experience</span>
                       </button>
                       <button 

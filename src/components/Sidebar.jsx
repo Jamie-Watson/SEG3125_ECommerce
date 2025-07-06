@@ -106,8 +106,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 className="nav-link accentText d-flex align-items-center py-2 sidebarText"
                 onClick={handleLinkClick}
               >
-                <i className="bi bi-search me-2"></i>
-                Search
+                <i class="bi bi-lamp me-2"></i>
+                Furniture
               </Link>
             </li>
             <li className="nav-item mb-1">
