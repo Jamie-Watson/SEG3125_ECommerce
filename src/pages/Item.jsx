@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus, ShoppingCart, Star } from 'lucide-react';
 import furnitureData from '../data/furnitureData';
+import CartPopup from '../components/CartPopup';
 
 const Item = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const Item = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [addingToCart, setAddingToCart] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const product = furnitureData.find(item => item.id === parseInt(id));
 
@@ -42,17 +44,32 @@ const Item = () => {
     setQuantity(prev => Math.max(1, prev + change));
   };
 
-  const handleAddToCart = async () => {
-    setAddingToCart(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    console.log(`Added ${quantity} of ${product.name} to cart`);
-    
-    setAddingToCart(false);
-    
-    alert(`Added ${quantity} ${product.name}(s) to cart!`);
-  };
+
+const handleAddToCart = async () => {
+  setAddingToCart(true);
+  
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  const existingCart = JSON.parse(localStorage.getItem('furnitureCart') || '[]');
+  
+  const existingItemIndex = existingCart.findIndex(item => item.id === product.id);
+  
+  if (existingItemIndex !== -1) {
+    existingCart[existingItemIndex].quantity += quantity;
+  } else {
+    existingCart.push({
+      ...product,
+      quantity: quantity
+    });
+  }
+  
+  localStorage.setItem('furnitureCart', JSON.stringify(existingCart));
+  
+  console.log(`Added ${quantity} of ${product.name} to cart`);
+  
+  setAddingToCart(false);
+  setShowPopup(true);
+};
 
   const handleBackToSearch = () => {
     navigate(previousSearch);
@@ -211,6 +228,12 @@ const Item = () => {
         </div>
         </div>
       </div>
+      <CartPopup 
+      isVisible={showPopup}
+      onClose={() => setShowPopup(false)}
+      productName={product.name}
+      quantity={quantity}
+    />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Search, X } from 'lucide-react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import furnitureData from '../data/furnitureData';
 import SearchJumbotron from '../components/SearchJumbotron';
+import CartPopup from '../components/CartPopup';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +16,8 @@ const SearchPage = () => {
   const [selectedRoomType, setSelectedRoomType] = useState('');
   const [onSaleOnly, setOnSaleOnly] = useState(false);
   const [sortBy, setSortBy] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+const [addedProduct, setAddedProduct] = useState(null);
 
   useEffect(() => {
     const searchParam = searchParams.get('search') || '';
@@ -222,9 +225,7 @@ const SearchPage = () => {
     });
   };
 
-  // Handle navigation to item page while preserving current search state
   const handleItemClick = (productId) => {
-    // Create the current search URL with all parameters
     const currentSearchUrl = `${location.pathname}?${searchParams.toString()}`;
     
     navigate(`/item/${productId}`, {
@@ -370,15 +371,27 @@ const SearchPage = () => {
                       )}
                     </div>
                     <button 
-                      className="btn searchAddToCartButton"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // Handle quick add to cart
-                        console.log(`Quick add ${product.name} to cart`);
-                      }}
-                    >
-                      Add to Cart
-                    </button>
+  className="btn searchAddToCartButton"
+  onClick={(e) => {
+    e.stopPropagation();
+    const existingCart = JSON.parse(localStorage.getItem('furnitureCart') || '[]');
+    const existingItemIndex = existingCart.findIndex(item => item.id === product.id);
+    if (existingItemIndex !== -1) {
+      existingCart[existingItemIndex].quantity += 1;
+    } else {
+      existingCart.push({
+        ...product,
+        quantity: 1
+      });
+    }
+    localStorage.setItem('furnitureCart', JSON.stringify(existingCart));
+    console.log(`Quick add ${product.name} to cart`);
+    setAddedProduct(product);
+    setShowPopup(true);
+  }}
+>
+  Add to Cart
+</button>
                   </div>
                 </div>
               </div>
@@ -395,6 +408,12 @@ const SearchPage = () => {
         </div>
       )}
     </div>
+    <CartPopup 
+      isVisible={showPopup}
+      onClose={() => setShowPopup(false)}
+      productName={addedProduct?.name || ''}
+      quantity={1}
+    />
     </>
   );
 };

@@ -73,7 +73,7 @@ body, html {
 
 .sidebarHamburger:hover {
   background-color: var(--t-l-blue) !important;
-  color: var(--t-white) !important;
+  color: var(--t-d-blue) !important;
 }
 
 .sidebarOverlay{
