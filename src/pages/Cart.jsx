@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
 
-function Cart () {
+function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -46,12 +46,15 @@ function Cart () {
   };
 
   const clearCart = () => {
-    setCartItems([]);
+    const confirmClear = window.confirm('Are you sure you want to clear all items from your cart?');
+    if (confirmClear) {
+      setCartItems([]);
+    }
   };
 
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
-      const price = item.sale.isOnSale ? item.sale.salePrice : item.price;
+      const price = item.sale?.isOnSale ? item.sale.salePrice : item.price;
       return total + (price * item.quantity);
     }, 0);
   };
@@ -61,7 +64,17 @@ function Cart () {
   };
 
   const handleCheckout = () => {
-    alert('Checkout functionality would be implemented here!');
+    if (cartItems.length === 0) {
+      alert('Your cart is empty! Please add some items before checking out.');
+      return;
+    }
+    
+    // Navigate to checkout page
+    navigate('/checkout');
+  };
+
+  const handleContinueShopping = () => {
+    navigate('/search');
   };
 
   if (loading) {
@@ -82,7 +95,7 @@ function Cart () {
         <div className="col-12">
           <button 
             className="btn searchAddToCartButton d-flex align-items-center"
-            onClick={() => navigate('/search')}
+            onClick={handleContinueShopping}
           >
             <ArrowLeft className="me-2" size={16} />
             Continue Shopping
@@ -92,18 +105,22 @@ function Cart () {
 
       <div className="row">
         <div className="col-12">
-          <h2 className="mb-4 darkBlueText">Shopping Cart ({getTotalItems()} items)</h2>
+          <h2 className="mb-4 darkBlueText">
+            Shopping Cart {cartItems.length > 0 && `(${getTotalItems()} items)`}
+          </h2>
         </div>
       </div>
 
       {cartItems.length === 0 ? (
         <div className="text-center py-5">
           <ShoppingCart size={64} className="darkBlueText mb-3" />
-          <h4>Your cart is empty</h4>
-          <p className="darkBlueText">Add some furniture to get started!</p>
+          <h4 className="darkBlueText">Your cart is empty</h4>
+          <p className="darkBlueText">
+            Ready to find your perfect furniture? Let's get you started on creating your dream space!
+          </p>
           <button 
-            className="btn searchAddToCartButton"
-            onClick={() => navigate('/search')}
+            className="btn searchAddToCartButton btn-lg"
+            onClick={handleContinueShopping}
           >
             Start Shopping
           </button>
@@ -125,7 +142,7 @@ function Cart () {
                 </div>
                 <div className="card-body p-0">
                   {cartItems.map(item => {
-                    const currentPrice = item.sale.isOnSale ? item.sale.salePrice : item.price;
+                    const currentPrice = item.sale?.isOnSale ? item.sale.salePrice : item.price;
                     const itemTotal = currentPrice * item.quantity;
                     
                     return (
@@ -144,7 +161,7 @@ function Cart () {
                             <p className="darkBlueText mb-0 small">
                               {item.brand} • {item.material}
                             </p>
-                            {item.sale.isOnSale && (
+                            {item.sale?.isOnSale && (
                               <span className="badge itemSaleBadge">On Sale</span>
                             )}
                           </div>
@@ -170,7 +187,7 @@ function Cart () {
                           <div className="col-md-2 text-center">
                             <div>
                               <span className="fw-bold infoText">${currentPrice}</span>
-                              {item.sale.isOnSale && (
+                              {item.sale?.isOnSale && (
                                 <div>
                                   <small className="darkBlueText text-decoration-line-through">
                                     ${item.price}
@@ -209,7 +226,7 @@ function Cart () {
                     <span>${getTotalPrice().toFixed(2)} CAD</span>
                   </div>
                   <div className="d-flex justify-content-between mb-2 darkBlueText">
-                    <span>Tax:</span>
+                    <span>Tax (13%):</span>
                     <span>${(getTotalPrice() * 0.13).toFixed(2)} CAD</span>
                   </div>
                   <hr />
@@ -220,7 +237,7 @@ function Cart () {
                     </strong>
                   </div>
                   <button 
-                    className="btn searchAddToCartButton w-100 btn-lg"
+                    className="btn searchAddToCartButton w-100 btn-lg mb-3"
                     onClick={handleCheckout}
                   >
                     Proceed to Checkout
@@ -233,6 +250,6 @@ function Cart () {
       )}
     </div>
   );
-};
+}
 
 export default Cart;

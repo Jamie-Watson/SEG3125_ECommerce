@@ -6,6 +6,7 @@ import SearchPage from './pages/SearchPage';
 import Cart from './pages/Cart';
 import Survey from './pages/Survey';
 import Item from './pages/Item';
+import Checkout from './pages/Checkout';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/item/:id" element={<Item />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/survey" element={<Survey />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </Main>
       </div>

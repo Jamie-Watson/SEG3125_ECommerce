@@ -161,3 +161,13 @@ body, html {
   background-color: var(--t-info) !important;
   color: var(--t-white) !important;
 }
+
+.orderSummary{
+  background-color: var(--t-info) !important;
+  color: var(--t-white) !important;
+}
+
+.orderProgress{
+  background-color: var(--t-info) !important;
+  color: var(--t-white) !important;
+}
